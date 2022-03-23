@@ -27,19 +27,20 @@ const Player = () => {
   };
 
   const callbackRef = useCallback(newRef => {
-    newRef.onloadedmetadata = function() {
-      setVideoRef(newRef);
-    };
-    newRef.ontimeupdate = function(e) {
-      setCurrTime(e.target.currentTime);
-    };
+    if(newRef) {
+      newRef.onloadedmetadata = function() {
+        setVideoRef(newRef);
+      };
+      newRef.ontimeupdate = function(e) {
+        setCurrTime(e.target.currentTime);
+      };
+    }
   }, []);
 
   return(
     <>
       <div className={cssContainer}>
         <video
-          controls
           preload="metadata"
           ref={callbackRef}
           className={cssVideo}
