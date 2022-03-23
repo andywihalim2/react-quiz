@@ -7,6 +7,7 @@ import Test4 from "./Test4";
 import Test5 from "./Test5";
 import Test6 from "./Test6";
 import Test7 from "./Test7";
+import Test7A from "./Test7A";
 import Test8 from "./Test8";
 import Test9 from "./Test9";
 
@@ -18,6 +19,7 @@ const questions = [
   { path: '/5', Element: Test5 },
   { path: '/6', Element: Test6 },
   { path: '/7', Element: Test7 },
+  { path: '/7a', Element: Test7A },
   { path: '/8', Element: Test8 },
   { path: '/9', Element: Test9 },
 ];
