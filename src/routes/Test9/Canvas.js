@@ -1,44 +1,73 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 
-const Canvas = ({ x, y, radius, color, velocity = 0, orbitRadius = 0 }) => {
+const PLANETS = [
+  { radius: 5, velocity: 5, orbitRadius: 65, color: 'gray'},
+  { radius: 10, velocity: 4, orbitRadius: 90, color: 'orange'},
+  { radius: 15, velocity: 3, orbitRadius: 125, color: 'blue'},
+  { radius: 20, velocity: 3.5, orbitRadius: 175, color: 'red'},
+  { radius: 25, velocity: 3, orbitRadius: 225, color: 'pink'},
+  { radius: 15, velocity: 2, orbitRadius: 325, color: 'purple'},
+  { radius: 7, velocity: 1, orbitRadius: 450, color: 'green'},
+];
+
+const x = 400; // center
+const y = 400; // center
+
+const Canvas = ({ planet = 0 }) => {
   const canvasRef = useRef();
+  const [radianPlanets, setRadianPlanets] = useState([]);
 
   useEffect(() => {
-    const canvas = canvasRef.current
-    const context = canvas.getContext('2d')
+    const canvas = canvasRef.current;
+    const context = canvas.getContext('2d');
 
     const draw = (c) => {
-        c.beginPath();
-        c.lineWidth = 2;
-        c.arc(
-            x, y, orbitRadius,
-            0,
-            Math.PI * 2,
-            false
-        );
-        c.strokeStyle = 'rgba(255, 255, 255, 0.35)';
-        c.stroke();
+        // clear canvas when planet change
+        c.clearRect(0, 0, canvas.width, canvas.height);
 
-        // Planet
-        c.shadowBlur = 15;
-        c.shadowColor = color;
+        // Sun
         c.beginPath();
-        c.arc(x, y, radius, 0, Math.PI * 2, false);
-        c.fillStyle = color;
+        c.arc(x, y , 50, 0, Math.PI * 2, false);
+        c.fillStyle = 'yellow';
         c.fill();
-        c.shadowBlur = 0;
 
-        if(velocity > 0) {
-            c.beginPath();
-            c.arc(x + orbitRadius + radius, y, 2, 0, Math.PI * 2, false);
-            c.fillStyle = 'gray';
-            c.fill();
+        // Planets
+        for(let i=0; i<planet; i++){
+          const { velocity, orbitRadius, color, radius } = PLANETS[i];
+          setRadianPlanets(prev => [...prev, velocity])
+          c.beginPath();
+          c.arc(x + Math.cos(velocity) * orbitRadius, y + Math.sin(velocity) * orbitRadius, radius, 0, Math.PI * 2, false);
+          c.fillStyle = color;
+          c.fill();
         }
     }
 
+    
+
     //Our draw come here
-    draw(context)
-  }, [x, y, radius, color, velocity, orbitRadius])
+    draw(context);
+  }, [planet]);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const context = canvas.getContext('2d');
+
+    const update = (c) => {
+      // Planets
+      let newRadianPlanets = [];
+      for(let i=0; i<planet; i++){
+        const { velocity, orbitRadius, color, radius } = PLANETS[i];
+        newRadianPlanets = [...newRadianPlanets, radianPlanets[i]+velocity];
+        c.beginPath();
+        c.arc(x + Math.cos(velocity) * orbitRadius, y + Math.sin(velocity) * orbitRadius, radius, 0, Math.PI * 2, false);
+        c.fillStyle = color;
+        c.fill();
+     }
+     setRadianPlanets(newRadianPlanets);
+    }
+
+    requestAnimationFrame(() => update(context));
+  })
 
   return (
       <canvas ref={canvasRef} width={800} height={800} />
