@@ -1,4 +1,5 @@
 import { css } from 'react-emotion';
+import { useRef } from 'react';
 
 const cssLabel = css({
   display: 'inline-block',
@@ -17,11 +18,18 @@ const cssLabel = css({
   }
 })
 
-const Label = () => {
+const Label = ({ input, onRemove }) => {
+  const ref = useRef('');
+
+  const handleHover = state => {
+    if(state === 'hover') ref.current.style.display = 'inline-block';
+    else  ref.current.style.display = 'none';
+  }
+
   return (
-    <span className={cssLabel}>
-      RENDER VALUE HERE
-      <button type="button">⊗</button>
+    <span className={cssLabel} onMouseOver={() => handleHover('hover')} onMouseLeave={() => handleHover('leave')} >
+      {input || 'RENDER VALUE HERE'}
+      <button type="button" ref={ref} style={{ display: 'none' }} onClick={onRemove}>⊗</button>
     </span>
   )
 }

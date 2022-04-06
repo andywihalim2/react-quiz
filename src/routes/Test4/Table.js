@@ -1,6 +1,7 @@
-// import DATA from "./_data";
+import DATA from "./_data";
 
-const Table = () => {
+const Table = ({filter}) => {
+  const newData = filter ? DATA.filter(value => value.name.toLowerCase().indexOf(filter) >= 0) : DATA;
   return (
     <table>
       <thead>
@@ -9,6 +10,13 @@ const Table = () => {
           <th>Age</th>
           <th>Address</th>
         </tr>
+        {newData.map(({ name, age, address }) => (
+          <tr key={address}>
+            <td>{name}</td>
+            <td>{age}</td>
+            <td>{address}</td>
+          </tr>
+        ))}
       </thead>
     </table>
   )

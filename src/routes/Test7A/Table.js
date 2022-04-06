@@ -1,16 +1,10 @@
 import DATA from "./_data";
-import { useState, forwardRef } from "react";
 
-const Table = forwardRef((props, ref) => {
-  const [filter, setFilter] = useState();
-  const newData = filter ? DATA.filter(value => value.name.toLowerCase().indexOf(filter) >= 0) : DATA;
-
-  const handleSearch = () => {
-    setFilter(ref.current.value);
-  };
+const Table = ({ input }) => {
+  const newData = input ? DATA.filter(value => value.name.toLowerCase().indexOf(input) >= 0) : DATA;
 
   return (
-    <table onClick={handleSearch}>
+    <table>
       <thead>
         <tr>
           <th>Name</th>
@@ -29,6 +23,6 @@ const Table = forwardRef((props, ref) => {
       </tbody>
     </table>
   )
-});
+};
 
 export default Table;

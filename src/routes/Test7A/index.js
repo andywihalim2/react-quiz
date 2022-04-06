@@ -1,10 +1,7 @@
-import { createRef } from "react";
 import useRenderLog from "../../hooks/useRenderLog";
-import Input from "./Input";
-import Table from "./Table";
+import Container from "./Container";
 
 const Test7 = () => {
-  const inputRef = createRef('');
   useRenderLog('Test7', 1);
 
   return(
@@ -13,10 +10,7 @@ const Test7 = () => {
         <li>Please filter the table by name search (after press enter or click search button)</li>
         <li>No rerender allowed in <code>Test7</code> component</li>
       </ul>
-      <Input ref={inputRef} />
-      <div>
-        <Table ref={inputRef} />
-      </div>
+      <Container />
     </div>
   )
 }

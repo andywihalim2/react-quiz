@@ -1,16 +1,15 @@
-
-const Input = ({ onSubmit }) => {
-  const handleSubmit = (e) => {
+const Input = ({ onSearch }) => {
+  const handleSearch = (e) => {
     e.preventDefault();
-    onSubmit(e.target.search.value.toLowerCase())
+    onSearch(e.target.search.value.toLowerCase())
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSearch}>
       <input id="search" type="text" placeholder="search" />
       <button type="submit">🔍</button>
     </form>
   )
-}
+};
 
 export default Input;

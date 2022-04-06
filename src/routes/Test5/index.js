@@ -1,8 +1,9 @@
 
-import { cssWrapper } from './style';
+import { useState, createContext } from 'react';
 
 import Comp1 from "./Comp1";
 import Comp3 from "./Comp3";
+import { cssWrapper } from './style';
 
 const question = (
   <ul>
@@ -25,21 +26,38 @@ const question = (
   </ul>
 );
 
+export const TestContext = createContext(0);
+
 const Test5 = () => {
+  const [input, setInput] = useState(0);
+  const [valueContext, setValueContext] = useState();
+
+  const handleChange = (e) => {
+    setInput(parseInt(e.target.value || 0, 10));
+  };
+
+  const handleAdd = () => {
+    setInput(prev => prev + 1);
+  };
+
+  const handleMin = () => {
+    setInput(prev=> prev - 1);
+  };
+
   return(
-    <div>
+    <TestContext.Provider value={[valueContext, setValueContext]}>
       {question}
-      <button id="numbermin" type="button">-</button>
-      <input id="mynumber" type="text" placeholder="input mynumber"/>
-      <button id="numberplus" type="button">+</button>
+      <button id="numbermin" type="button" onClick={handleMin}>-</button>
+      <input id="mynumber" type="text" placeholder="input mynumber" value={valueContext} onChange={handleChange} />
+      <button id="numberplus" type="button" onClick={handleAdd}>+</button>
       <br/>
       <br/>
       <div className={cssWrapper}>
-        The inputted value is [ODD / EVEN]*
+        The inputted value is {input % 2===0 ? 'EVEN' : 'ODD'}
       </div>
-      <Comp1 />
+      <Comp1 prevInput={input}/>
       <Comp3 />
-    </div>
+    </TestContext.Provider>
   )
 }
 
