@@ -3,6 +3,7 @@ import { cssWrapper } from './style';
 
 import Comp1 from "./Comp1";
 import Comp3 from "./Comp3";
+import { useState, createContext, useContext } from 'react'
 
 const question = (
   <ul>
@@ -25,21 +26,30 @@ const question = (
   </ul>
 );
 
+const ValueContext = createContext()
+
+export const useValue = () => {
+  return useContext(ValueContext);
+};
+
 const Test5 = () => {
-  return(
-    <div>
+  const [value, setValue] = useState('0')
+  const number = Number(value)
+
+  return (
+    <ValueContext.Provider value={{ value, setValue }}>
       {question}
-      <button id="numbermin" type="button">-</button>
-      <input id="mynumber" type="text" placeholder="input mynumber"/>
-      <button id="numberplus" type="button">+</button>
-      <br/>
-      <br/>
+      <button id="numbermin" type="button" onClick={() => setValue(number - 1)}>-</button>
+      <input id="mynumber" type="text" placeholder="input mynumber" value={value} onChange={(e) => setValue(e.target.value)} />
+      <button id="numberplus" type="button" onClick={() => setValue(number + 1)}>+</button>
+      <br />
+      <br />
       <div className={cssWrapper}>
-        The inputted value is [ODD / EVEN]*
+        The inputted value is [{number % 2 === 0 ? 'EVEN' : 'ODD'}]*
       </div>
-      <Comp1 />
+      <Comp1 value={value} setValue={setValue} />
       <Comp3 />
-    </div>
+    </ValueContext.Provider>
   )
 }
 

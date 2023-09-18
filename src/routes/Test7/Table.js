@@ -1,6 +1,6 @@
-import DATA from "./_data";
+import React from 'react'
 
-const Table = () => {
+const Table = ({ data }) => {
   return (
     <table>
       <thead>
@@ -11,11 +11,11 @@ const Table = () => {
         </tr>
       </thead>
       <tbody>
-        {DATA.map((eachrow, idx) => (
+        {data?.map(({ name, age, address }, idx) => (
           <tr key={idx}>
-            <td>{eachrow.name}</td>
-            <td>{eachrow.age}</td>
-            <td>{eachrow.address}</td>
+            <td>{name}</td>
+            <td>{age}</td>
+            <td>{address}</td>
           </tr>
         ))}
       </tbody>
