@@ -1,10 +1,15 @@
-const Input = ({ inputRef, onSubmit }) => {
+const Input = ({ onSearch }) => {
+  const handleSearch = (e) => {
+    e.preventDefault()
+    onSearch(e.target.search.value)
+  }
+
   return (
-    <form onSubmit={onSubmit}>
-      <input type="text" placeholder="search" ref={inputRef} />
-      <button type="submit">🔍</button>
+    <form onSubmit={handleSearch}>
+      <input id='search' type='text' placeholder='search' />
+      <button type='submit'>🔍</button>
     </form>
   )
 }
 
-export default Input;
+export default Input
