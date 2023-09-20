@@ -1,4 +1,8 @@
-const Table = ({ data }) => {
+import _data from './_data'
+
+const Table = ({ keyword }) => {
+  const filtered = keyword ? _data.filter(({ name }) => name.toLowerCase().includes(keyword.toLowerCase())) : _data
+
   return (
     <table>
       <thead>
@@ -9,18 +13,16 @@ const Table = ({ data }) => {
         </tr>
       </thead>
       <tbody>
-        {
-          data?.map(({ name, age, address }, idx) => (
-            <tr key={idx}>
-              <td>{name}</td>
-              <td>{age}</td>
-              <td>{address}</td>
-            </tr>
-          ))
-        }
+        {filtered?.map(({ name, age, address }, idx) => (
+          <tr key={idx}>
+            <td>{name}</td>
+            <td>{age}</td>
+            <td>{address}</td>
+          </tr>
+        ))}
       </tbody>
     </table>
   )
 }
 
-export default Table;
+export default Table

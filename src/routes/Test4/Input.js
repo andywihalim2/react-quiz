@@ -1,14 +1,12 @@
-
-const Input = ({ keyword, setKeyword, onSearchClick }) => {
+const Input = ({ inputRef, onSubmit }) => {
   return (
     <form>
-      <input type="text" placeholder="search" value={keyword} onChange={(e) => setKeyword(e.target.value)} />
-      <button type="submit" onClick={(e) => {
-        e.preventDefault()
-        onSearchClick()
-      }}>🔍</button>
+      <input type='text' placeholder='search' ref={inputRef} />
+      <button type='submit' onClick={onSubmit}>
+        🔍
+      </button>
     </form>
   )
 }
 
-export default Input;
+export default Input
