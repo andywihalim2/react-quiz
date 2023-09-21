@@ -1,5 +1,5 @@
 import Solar from './Solar'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 const planets = [
   { color: 'red', radius: 5, orbidRadius: 80, velocity: 3 },
@@ -15,12 +15,28 @@ const planets = [
 export const maxPlanet = planets.length
 
 const Test9 = () => {
-  const [value, setValue] = useState('0')
-  const [data, setData] = useState(planets)
+  const [value, setValue] = useState('')
+
   const planet = Number(value)
+  const data = planets.slice(0, planet)
 
   const onChange = (e) => {
     const planet = Number(e.target.value)
+
+    if (isNaN(planet)) {
+      alert('must be a number')
+      return
+    }
+
+    if (planet < 0) {
+      alert('must be a positive number')
+      return
+    }
+
+    if (planet === 0) {
+      setValue('')
+      return
+    }
 
     if (planet > maxPlanet) {
       alert(`max planet is ${maxPlanet}`)
@@ -29,11 +45,6 @@ const Test9 = () => {
 
     setValue(planet)
   }
-
-  useEffect(() => {
-    const newData = planets.slice(0, planet)
-    setData(newData)
-  }, [planet])
 
   return (
     <>
