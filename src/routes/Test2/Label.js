@@ -1,4 +1,5 @@
 import { css } from 'react-emotion';
+import { useState } from 'react'
 
 const cssLabel = css({
   display: 'inline-block',
@@ -17,11 +18,13 @@ const cssLabel = css({
   }
 })
 
-const Label = () => {
+const Label = ({ value, setValue }) => {
+  const [isHovered, setIsHovered] = useState(false)
+
   return (
-    <span className={cssLabel}>
-      RENDER VALUE HERE
-      <button type="button">⊗</button>
+    <span className={cssLabel} onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+      {value}
+      {isHovered && <button type="button" onClick={() => setValue('')}>⊗</button>}
     </span>
   )
 }

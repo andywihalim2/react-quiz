@@ -1,7 +1,7 @@
 import Player from "./Player";
 
 const Test6 = () => {
-  return(
+  return (
     <div>
       <ul>
         <li>Make your own video player GUI</li>

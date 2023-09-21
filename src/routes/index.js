@@ -25,19 +25,18 @@ const questions = [
 function Routes() {
   const renderNav = [];
 
-  const renderRoutes = questions.map(({path, Element}) => {
+  const renderRoutes = questions.map(({ path, Element }) => {
     renderNav.push(<Link key={path} to={path}>{`${path} `}</Link>);
-    return <Route key={path} exact path={path} element={<Element/>}/>;
+    return <Route key={path} exact path={path} element={<Element />} />;
   });
 
   return (
-    
-      <Router>
-        <Layout>
-          {renderNav}
-          <Switch>{renderRoutes}</Switch>
-        </Layout>
-      </Router>
+    <Router>
+      <Layout>
+        {renderNav}
+        <Switch>{renderRoutes}</Switch>
+      </Layout>
+    </Router>
   );
 }
 

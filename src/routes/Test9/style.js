@@ -17,9 +17,20 @@ export const cssSun = css({
   borderRadius: 40,
 });
 
-export const cssPlanet = () => css({
-  width: 20,
-  height: 20,
-  borderRadius: 10,
-  backgroundColor: 'red',
+export const cssOrbit = (orbidRadius, velocity) => css({
+  width: orbidRadius, 
+  height: orbidRadius,
+  position: 'absolute',
+  animation: `spin ${velocity}s linear infinite`,
+  '@keyframes spin': {
+    from: { transform: 'rotate(0deg)' },
+    to: { transform: 'rotate(360deg)' },
+  },
+})
+
+export const cssPlanet = (radius, color) => css({
+  width: radius,
+  height: radius,
+  borderRadius: 100,
+  backgroundColor: color,
 });

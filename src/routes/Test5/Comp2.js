@@ -1,9 +1,9 @@
 import { cssWrapper } from './style';
 
-const Comp2 = () => {
-  return(
+const Comp2 = ({ value }) => {
+  return (
     <>
-      <div className={cssWrapper}>Latest inputted value is: ______*</div>
+      <div className={cssWrapper}>Latest inputted value is: {value}*</div>
     </>
   )
 }

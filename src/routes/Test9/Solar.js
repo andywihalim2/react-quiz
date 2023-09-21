@@ -1,15 +1,16 @@
-import { cssSpace, cssSun, cssPlanet } from './style';
+import { cssSpace, cssSun, cssOrbit, cssPlanet } from './style'
 
-const Solar = () => {
+const Solar = ({ planet }) => {
   return (
     <div className={cssSpace}>
-      {/* <div className={cssSun}/> */}
-      {/* answer */}
-      <div className={cssSun}>
-        <div className={cssPlanet()} />
-      </div>
+      <div className={cssSun} />
+      {planet.map(({ color, radius, orbidRadius, velocity }, index) => (
+        <div key={index} className={cssOrbit(orbidRadius, velocity)}>
+          <div className={cssPlanet(radius, color)} />
+        </div>
+      ))}
     </div>
   )
-};
+}
 
-export default Solar;
+export default Solar
