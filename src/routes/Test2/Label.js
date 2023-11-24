@@ -7,6 +7,7 @@ const cssLabel = css({
   backgroundColor: '#e0e0e0',
   borderRadius: 8,
   button: {
+    visibility: 'hidden',
     backgroundColor: 'transparent',
     color: 'red',
     marginLeft: 4,
@@ -14,14 +15,17 @@ const cssLabel = css({
     padding: 0,
     border: 'none',
     outline: 'none',
+  },
+  ':hover button': {
+  visibility: 'visible'
   }
 })
 
-const Label = () => {
+const Label = ({value, clearInput}) => {
   return (
     <span className={cssLabel}>
-      RENDER VALUE HERE
-      <button type="button">⊗</button>
+      {value}
+      <button type="button" onClick={() => clearInput()}>⊗</button>
     </span>
   )
 }

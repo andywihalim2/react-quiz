@@ -1,6 +1,9 @@
+import { useState } from "react";
 import Solar from "./Solar";
 
 const Test9 = () => {
+  const [numPlanets, setNumPlanets] = useState(5);
+
   return (
     <>
       <ul>
@@ -9,10 +12,15 @@ const Test9 = () => {
         <li>The color of each planet must be unique</li>
         <li>More far the planet = more time it's revolves</li>
       </ul>
-      <input type="text" placeholder="number of planet"/>
-      <Solar/>
+      <input
+        value={numPlanets}
+        onChange={(e) => setNumPlanets(e.currentTarget.value)}
+        type="text"
+        placeholder="number of planet"
+      />
+      <Solar numPlanets={numPlanets} />
     </>
-  )
-}
+  );
+};
 
 export default Test9;

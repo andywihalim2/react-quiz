@@ -1,11 +1,15 @@
+const Input = ({ onSubmit }) => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSubmit(e.target.filter.value);
+  };
 
-const Input = () => {
   return (
-    <form>
-      <input type="text" placeholder="search" />
+    <form onSubmit={handleSubmit}>
+      <input id="filter" type="text" placeholder="search" />
       <button type="submit">🔍</button>
     </form>
-  )
-}
+  );
+};
 
 export default Input;

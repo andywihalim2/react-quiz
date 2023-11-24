@@ -1,6 +1,14 @@
-// import DATA from "./_data";
+import DATA from "./_data";
 
-const Table = () => {
+const Table = ({filterQuery}) => {
+
+  function filterObjectsByName(arr, query) {
+    const filteredObjects = arr.filter(object => object.name.toLowerCase().includes(query.toLowerCase()));
+    return filteredObjects;
+  }
+
+  const filteredData = filterObjectsByName(DATA, filterQuery)
+
   return (
     <table>
       <thead>
@@ -9,6 +17,15 @@ const Table = () => {
           <th>Age</th>
           <th>Address</th>
         </tr>
+        {
+          filteredData.map((data, idx) => (
+            <tr key={idx}>
+              <td>{data.name}</td>
+              <td>{data.age}</td>
+              <td>{data.address}</td>
+            </tr>
+          ))
+        }
       </thead>
     </table>
   )

@@ -3,6 +3,7 @@ import { cssWrapper } from './style';
 
 import Comp1 from "./Comp1";
 import Comp3 from "./Comp3";
+import { createContext, useContext, useState } from 'react';
 
 const question = (
   <ul>
@@ -25,20 +26,40 @@ const question = (
   </ul>
 );
 
+const Test5Context = createContext()
+
+export const useTest5Context = () => useContext(Test5Context)
+
 const Test5 = () => {
+  const [mynumber, setMynumber] = useState(0)
+  const [showModal, setShowModal] = useState(false)
+  const [globalnumber, setGlobalnumber] = useState(0)
+
+  const handleGlobalNumber = (num) => {
+    setMynumber(num)
+    setGlobalnumber(num)
+  }
+
   return(
     <div>
       {question}
-      <button id="numbermin" type="button">-</button>
-      <input id="mynumber" type="text" placeholder="input mynumber"/>
-      <button id="numberplus" type="button">+</button>
+      <button id="numbermin" type="button" onClick={() => setMynumber(mynumber - 1)}>-</button>
+      <input id="mynumber" type="number" placeholder="input mynumber" value={mynumber} onChange={(e) => setMynumber(Number(e.currentTarget.value))}/>
+      <button id="numberplus" type="button" onClick={() => setMynumber(mynumber + 1)}>+</button>
       <br/>
       <br/>
       <div className={cssWrapper}>
-        The inputted value is [ODD / EVEN]*
+        The inputted value is {mynumber % 2 === 0 ? "EVEN" : "ODD"}
       </div>
-      <Comp1 />
-      <Comp3 />
+      <Comp1 mynumber={mynumber} globalnumber={globalnumber} />
+      <Test5Context.Provider value={{
+        mynumber,
+        showModal,
+        setShowModal,
+        handleGlobalNumber
+      }}>
+      <Comp3/>
+      </Test5Context.Provider>
     </div>
   )
 }

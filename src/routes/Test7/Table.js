@@ -1,6 +1,9 @@
 import DATA from "./_data";
 
-const Table = () => {
+const Table = ({ filterQuery }) => {
+  const filteredData = DATA.filter(({ name }) =>
+    name.toLowerCase().includes(filterQuery.toLowerCase())
+  );
   return (
     <table>
       <thead>
@@ -11,7 +14,7 @@ const Table = () => {
         </tr>
       </thead>
       <tbody>
-        {DATA.map((eachrow, idx) => (
+        {filteredData.map((eachrow, idx) => (
           <tr key={idx}>
             <td>{eachrow.name}</td>
             <td>{eachrow.age}</td>
@@ -20,7 +23,7 @@ const Table = () => {
         ))}
       </tbody>
     </table>
-  )
-}
+  );
+};
 
 export default Table;
