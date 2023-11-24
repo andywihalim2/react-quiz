@@ -50,18 +50,21 @@ const Test8 = () => {
           name="name"
           type="text"
           placeholder="name"
+          value={data.name}
           onChange={handleInput}
         />
         <input
           name="age"
           type="text"
           placeholder="age"
+          value={data.age}
           onChange={handleInput}
         />
         <textarea
           name="address"
           type="text"
           placeholder="address"
+          value={data.address}
           onChange={handleInput}
         />
         <button>Submit</button>
